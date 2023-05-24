@@ -19,7 +19,9 @@ body {{
 st.markdown(html_code, unsafe_allow_html=True)
 
 
+from traces import trace_avec_frottements
 
-trace_sans_frott()
+trace_avec_frottements()
+
 
 
