@@ -1,4 +1,4 @@
-import streamlit as st
+# import streamlit as st
 import numpy as np
 import matplotlib.pyplot as plt
 from math import *
@@ -12,19 +12,19 @@ from matplotlib import rc
 
 g = 9.81  # Accélération due à la gravité
 
-t0=0
-dt=0.1
-tf=10
+t0 = 0
+dt = 0.1
+tf = 10
 
 
 ### Paramètres initiaux sur le ballon
 
 m = 0.450 # Masse du ballon en kg
-a = 0.25  #longueur en m
+a = 0.25  # longueur en m
 b = 0.19  # largeur en m
-Vb = 0.0048 #volume du ballon
+Vb = 0.0048 # volume du ballon
 
-alpha = 0  #angle d'attaque du coup de pied
+alpha = 0  # angle d'attaque du coup de pied
 gamma = 30 # angle de trajectoire de vole
 khi = 0  #angle d'azimuth de la vitesse
 
@@ -118,30 +118,30 @@ def FW():
     dWdt = Za/m + g*cos(THET)*cos(PHI) - P*V + Q*U
 
 
-def Fpos(t,A,B,C):
-    return np.dot(B,C)
+def Fpos(t, A, B, C):
+    return np.dot(B, C)
     
 
 ### Initialisation des listes pour stocker les variables
 
 
-vX=[X0]
-vY=[Y0]
-vZ=[Z0]
+vX = [X0]
+vY = [Y0]
+vZ = [Z0]
 
-vU=[U]
-vV=[V]
-vW=[W]
+vU = [U]
+vV = [V]
+vW = [W]
 
-vP=[P]
-vQ=[Q]
-vR=[R]
+vP = [P]
+vQ = [Q]
+vR = [R]
 
-vPSI=[PSI]
-vTHET=[THET]
-vPHI=[PHI]
+vPSI = [PSI]
+vTHET = [THET]
+vPHI = [PHI]
 
-t_val=[t0]
+t_val = [t0]
 
 
 ### definition d'une intégration RK4 entre deux pas de temps
@@ -157,35 +157,35 @@ def runge_kutta(t, A, B, C, dt):
 
 ## début de la boucle de résolution
 
-while t_val[-1]<tf:
+while t_val[-1] < tf:
     
-    t=t_val[-1]
-    t_span=(t, t+dt)
+    t = t_val[-1]
+    t_span = (t, t+dt)
     
-    X=vX[-1]
-    Y=vY[-1]
-    Z=vZ[-1]
+    X = vX[-1]
+    Y = vY[-1]
+    Z = vZ[-1]
     
-    U=vU[-1]
-    V=vV[-1]
-    W=vW[-1]
+    U = vU[-1]
+    V = vV[-1]
+    W = vW[-1]
     
-    P=vP[-1]
-    Q=vQ[-1]
-    R=vR[-1]
+    P = vP[-1]
+    Q = vQ[-1]
+    R = vR[-1]
     
-    PSI=vPSI[-1]
-    THET=vTHET[-1]
-    PHI=vPHI[-1]
+    PSI = vPSI[-1]
+    THET = vTHET[-1]
+    PHI = vPHI[-1]
     
     
     ####################### intégration ####################
     
-    #On intègre notre position pour les vitesses et angles d'Euler initiaux déjà connu
+    #On intègre notre position pour les vitesses et angles d'Euler initiaux déjà connus
     
-    M_vit=np.array([[vU[-1]],[vV[-1]],[vW[-1]]])
-    A=np.array([[vX[-1]],[vY[-1]],[vZ[-1]]])  #matrice des positions du ballon au temps t
-    A_new=runge_kutta(t, A, Mij, M_vit, dt)   #matrice des positions du ballon au temps t+dt
+    M_vit = np.array([[vU[-1]], [vV[-1]], [vW[-1]]])
+    A = np.array([[vX[-1]], [vY[-1]], [vZ[-1]]])  #matrice des positions du ballon au temps t
+    A_new = runge_kutta(t, A, Mij, M_vit, dt)   #matrice des positions du ballon au temps t+dt
     
     
     
