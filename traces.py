@@ -1,6 +1,8 @@
 import numpy as np
 import matplotlib.pyplot as plt
-import streamlit as st
+# import streamlit as st
+from trajectoire_v2_jj import système
+from scipy.integrate import solve_ivp
 
 g = 9.81  # Accélération due à la gravité
 masse = 0.45  # Masse en kg
@@ -148,4 +150,139 @@ def trace_avec_frottements():
     plt.title("Position d'un ballon rond avec frottements en fonction du temps")
     # plt.show()
     st.pyplot(fig)
+    return 0
+
+
+
+
+"""
+
+fonction hilaire 
+
+"""
+
+
+def trajectoire_reelle():
+    t0 = 0
+    dt = 0.1
+    tf = 10
+
+    ### Paramètres initiaux sur le ballon
+
+    m = 0.450  # Masse du ballon en kg
+    a = 0.25  # longueur en m
+    b = 0.19  # largeur en m
+    Vb = 0.0048  # volume du ballon
+
+    alpha = 60  # angle d'attaque du coup de pied
+    gamma = 30  # angle de trajectoire de vol
+    khi = 0  # angle d'azimuth de la vitesse
+
+    w = 20  # norme de la vitesse de rotation en tour par seconde
+
+
+    X0 = 40  # position initiale du ballon
+    Y0 = 35
+    Z0 = 0
+
+    U = 25  # composantes de la vitesse initiale
+    V = 0.1
+    W = 0.1
+
+    P = 10  # composante du vecteur vitesse angulaire (en s-1)
+    Q = 0
+    R = 0
+
+    PSI = 45  # angles d'euler initiaux
+    THET = 45
+    PHI = 0
+
+    initial_variables = [X0, Y0, Z0, U, V, W, P, Q, R, PSI, PHI, THET]
+    num_points = 100
+    t_eval = np.linspace(t0, tf, num_points)
+
+    solution = solve_ivp(système, (t0, tf), initial_variables, method='DOP853', t_eval=t_eval)
+
+    t = solution.t
+
+    X = solution.y[0]
+    Y = solution.y[1]
+    Z = solution.y[2]
+    U = solution.y[3]
+    V = solution.y[4]
+    W = solution.y[5]
+    P = solution.y[6]
+    Q = solution.y[7]
+    R = solution.y[8]
+    PSI = solution.y[9]
+    PHI = solution.y[10]
+    THET = solution.y[11]
+
+    k = 0
+    for z in Z:
+        if z <= 0:
+            k += 1
+
+    ax = plt.axes(projection='3d')
+    # plt.plot(X, -Z)
+    # plt.plot(X, -W)
+    # plt.ylim(bottom=0)
+    ax.legend()
+
+    ax.set_xlim(-10, 110)
+    ax.set_ylim(-10, 80)
+    ax.set_zlim(0, 30)
+    ax.set_xlabel('X')
+    ax.set_ylabel('Y')
+    ax.set_zlabel('Z')
+
+    ax.plot3D(X[:k], Y[:k], -Z[:k], 'gray')
+
+    """
+    
+    tracé du terrain
+    
+    """
+
+    def perches():
+        largeur = 5.6
+        hauteur = 3
+        taille = 11
+        X0, Y0, Z0 = 0, 32.2, 0
+        X1, Y1, Z1 = 0, 32.2 + largeur, 0
+
+        Z01 = taille
+        Z02 = hauteur
+
+        ax.plot3D([X0, X0], [Y0, Y0], [Z0, Z01], 'blue')
+        ax.plot3D([X1, X1], [Y1, Y1], [Z0, Z01], 'blue')
+        ax.plot3D([X1, X1], [Y0, Y1], [Z02, Z02], 'blue')
+
+        X0, X1 = 100, 100
+
+        ax.plot3D([X0, X0], [Y0, Y0], [Z0, Z01], 'blue')
+        ax.plot3D([X1, X1], [Y1, Y1], [Z0, Z01], 'blue')
+        ax.plot3D([X1, X1], [Y0, Y1], [Z02, Z02], 'blue')
+
+        return 0
+
+    def terrain():
+        X0, Y0 = 0, 0
+        X1, Y1 = 0, 70
+        X2, Y2 = 100, 70
+        X3, Y3 = 100, 0
+
+        plt.plot([X0, X1], [Y0, Y1], 'g')
+        plt.plot([X1, X2], [Y1, Y2], 'g')
+        plt.plot([X2, X3], [Y2, Y3], 'g')
+        plt.plot([X3, X0], [Y3, Y0], 'g')
+
+        # plt.show()
+        return 0
+
+    perches()
+    terrain()
+
+    plt.show()
+    # st.pyplot(fig)
     return 0

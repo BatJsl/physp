@@ -20,8 +20,8 @@ st.markdown(html_code, unsafe_allow_html=True)
 
 
 from traces import trace_avec_frottements
+from traces import trajectoire_reelle
 
 trace_avec_frottements()
 
-
-
+trajectoire_reelle()

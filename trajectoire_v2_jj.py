@@ -163,29 +163,3 @@ def système(t, variables):
     dTHET_dt = FTHET(PHI, Q, R)
 
     return [dX_dt, dY_dt, dZ_dt, dU_dt, dV_dt, dW_dt, dP_dt, dQ_dt, dR_dt, dPSI_dt, dPHI_dt, dTHET_dt]
-
-
-initial_variables = [X0, Y0, Z0, U, V, W, P, Q, R, PSI, PHI, THET]
-num_points = 100
-t_eval = np.linspace(t0, tf, num_points)
-
-solution = solve_ivp(système, (t0, tf), initial_variables, method='DOP853', t_eval=t_eval)
-
-t = solution.t
-
-X = solution.y[0]
-Y = solution.y[1]
-Z = solution.y[2]
-U = solution.y[3]
-V = solution.y[4]
-W = solution.y[5]
-P = solution.y[6]
-Q = solution.y[7]
-R = solution.y[8]
-PSI = solution.y[9]
-PHI = solution.y[10]
-THET = solution.y[11]
-
-plt.plot(X, -Z)
-plt.ylim(bottom=0)
-plt.show()
