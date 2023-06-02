@@ -181,11 +181,11 @@ def trajectoire_reelle():
     w = 20  # norme de la vitesse de rotation en tour par seconde
 
 
-    X0 = 40  # position initiale du ballon
+    X0 = 10  # position initiale du ballon
     Y0 = 35
     Z0 = 0
 
-    U = 25  # composantes de la vitesse initiale
+    U = 32  # composantes de la vitesse initiale
     V = 0.1
     W = 0.1
 
@@ -193,8 +193,8 @@ def trajectoire_reelle():
     Q = 0
     R = 0
 
-    PSI = 45  # angles d'euler initiaux
-    THET = 45
+    PSI = 0  # angles d'euler initiaux
+    THET = np.radians(20)
     PHI = 0
 
     initial_variables = [X0, Y0, Z0, U, V, W, P, Q, R, PSI, PHI, THET]
@@ -235,6 +235,7 @@ def trajectoire_reelle():
     ax.set_xlabel('X')
     ax.set_ylabel('Y')
     ax.set_zlabel('Z')
+    ax.view_init(azim=90, elev=0)
 
     ax.plot3D(X[:k], Y[:k], -Z[:k], 'gray')
 
