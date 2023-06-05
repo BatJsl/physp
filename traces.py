@@ -1,6 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
-# import streamlit as st
+import streamlit as st
 from trajectoire_v2_jj import système
 from scipy.integrate import solve_ivp
 
@@ -185,7 +185,7 @@ def trajectoire_reelle():
     Y0 = 35
     Z0 = 0
 
-    U = 32  # composantes de la vitesse initiale
+    U = st.number_input("Vitesse initiale (en m/s)", min_value=0.0, step=1.0, value=32.0)  # composantes de la vitesse initiale
     V = 0.1
     W = 0.1
 
@@ -193,8 +193,8 @@ def trajectoire_reelle():
     Q = 0
     R = 0
 
-    PSI = 0  # angles d'euler initiaux
-    THET = np.radians(20)
+    PSI = np.radians(0.0)  # angles d'euler initiaux
+    THET = np.radians(st.number_input("Angle initial", min_value=0.0, step=1.0, value=20.0))
     PHI = 0
 
     initial_variables = [X0, Y0, Z0, U, V, W, P, Q, R, PSI, PHI, THET]
@@ -223,6 +223,7 @@ def trajectoire_reelle():
         if z <= 0:
             k += 1
 
+    fig, ax = plt.subplots()
     ax = plt.axes(projection='3d')
     # plt.plot(X, -Z)
     # plt.plot(X, -W)
@@ -235,7 +236,7 @@ def trajectoire_reelle():
     ax.set_xlabel('X')
     ax.set_ylabel('Y')
     ax.set_zlabel('Z')
-    ax.view_init(azim=90, elev=0)
+    # ax.view_init(azim=90, elev=0)
 
     ax.plot3D(X[:k], Y[:k], -Z[:k], 'gray')
 
@@ -284,6 +285,6 @@ def trajectoire_reelle():
     perches()
     terrain()
 
-    plt.show()
-    # st.pyplot(fig)
+    # plt.show()
+    st.pyplot(fig)
     return 0

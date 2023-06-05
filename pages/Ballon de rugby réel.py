@@ -1,3 +1,3 @@
-# import streamlit as st
+import streamlit as st
 from traces import trajectoire_reelle
 trajectoire_reelle()
