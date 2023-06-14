@@ -6,7 +6,9 @@ from scipy.integrate import odeint,solve_ivp
 import matplotlib
 from matplotlib.ticker import FuncFormatter, MultipleLocator
 from matplotlib import rc
-
+"""
+définition de fonctions utiles dans le fichier traces.py
+"""
 
 ### Constantes physiques ###
 
@@ -19,31 +21,31 @@ tf = 10
 
 ### Paramètres initiaux sur le ballon
 
-m = 0.450 # Masse du ballon en kg
+m = 0.450  # Masse du ballon en kg
 a = 0.25  # longueur en m
 b = 0.19  # largeur en m
-Vb = 0.0048 # volume du ballon
+Vb = 0.0048  # volume du ballon
 
 alpha = 0  # angle d'attaque du coup de pied
-gamma = 30 # angle de trajectoire de vole
-khi = 0  #angle d'azimuth de la vitesse
+gamma = 30  # angle de trajectoire de vole
+khi = 0  # angle d'azimuth de la vitesse
 
-w = 10 #norme de la vitesse de rotation en tour par seconde
+w = 10 # norme de la vitesse de rotation en tour par seconde
 
-  #theta wt à définir 
+  # theta wt à définir
 
-X0 = 20 #position initiale du ballon
+X0 = 20 # position initiale du ballon
 Y0 = 50
 Z0 = -0.5
 
-U = 25  #composantes de la vitesse initiale
+U = 25  # composantes de la vitesse initiale
 V = 1
 W = 1
-NV=sqrt(U**2+V**2+W**2) #norme de la vitesse
+NV = sqrt(U**2+V**2+W**2)  # norme de la vitesse
 
-twt=np.arcsin(sqrt(V**2+W**2)/NV)
+twt = np.arcsin(sqrt(V**2+W**2)/NV)
 
-P = 10 #composante du vecteur vitesse angulaire (en s-1)
+P = 10  # c omposante du vecteur vitesse angulaire (en s-1)
 Q = 0
 R = 0
 
@@ -51,29 +53,29 @@ PSI = 0
 THET = 30
 PHI = 0
 
-Mij=np.array([[cos(THET)*cos(PSI), sin(THET)*cos(PSI)*sin(PHI)-cos(PHI)*sin(PSI), cos(PHI)*cos(PSI)*sin(THET)+sin(PHI)*sin(PSI)],[cos(THET)*sin(PSI), sin(THET)*sin(PSI)*sin(PHI)+cos(PHI)*cos(PSI), cos(PHI)*sin(PSI)*sin(THET)-sin(PHI)*cos(PSI)],[-sin(THET), sin(PHI)*cos(THET),cos(PHI)*cos(THET)]], dtype=float)
+Mij = np.array([[cos(THET)*cos(PSI), sin(THET)*cos(PSI)*sin(PHI)-cos(PHI)*sin(PSI), cos(PHI)*cos(PSI)*sin(THET)+sin(PHI)*sin(PSI)], [cos(THET)*sin(PSI), sin(THET)*sin(PSI)*sin(PHI)+cos(PHI)*cos(PSI), cos(PHI)*sin(PSI)*sin(THET)-sin(PHI)*cos(PSI)], [-sin(THET), sin(PHI)*cos(THET),cos(PHI)*cos(THET)]], dtype=float)
 
 
 
-#### Definition des composantes (Xa, Ya, Za) de la force aéro ###
+#### Definition des composantes (Xa, Ya, Za) de la force aéro ####
 
-Cd = 2.44e-3-1.09e-3*twt+3.03e-4*twt**2+3.59e-7*twt**3-2.50e-8*twt**4  #coefficient de trainé
-Cl = 6.25e-3*twt + 2.41e-4*twt**2 - 3.44e-6*twt**3#coefficient de portance 
+Cd = 2.44e-3-1.09e-3*twt+3.03e-4*twt**2+3.59e-7*twt**3-2.50e-8*twt**4  # coefficient de trainé
+Cl = 6.25e-3*twt + 2.41e-4*twt**2 - 3.44e-6*twt**3  # coefficient de portance
 Cm = 1.51e-2*twt - 1.69e-4*twt**2
 Cy = 1
 
-L = 0    #lift (masse volumique air à 1.2 kg/m3)
-D = 0.5*1.2*Cd*NV*NV*Vb**(2/3) #drag
-M = 0.5*1.2*Cm*NV*NV*Vb #pitching moment
-Y = 0.5*1.2*Cy*NV*NV*Vb**(2/3) #side force
+L = 0  # lift (masse volumique air à 1.2 kg/m3)
+D = 0.5*1.2*Cd*NV*NV*Vb**(2/3)  # drag
+M = 0.5*1.2*Cm*NV*NV*Vb  # pitching moment
+Y = 0.5*1.2*Cy*NV*NV*Vb**(2/3)  # side force
 
 Xa = -D*U/NV
-Ya = -D*V/NV + Y*W/(sqrt(V**2+W**2)) ## L=0 ici
+Ya = -D*V/NV + Y*W/(sqrt(V**2+W**2))  # L=0 ici
 Za = -D*W/NV - Y*V/sqrt(V**2+W**2)
 
 ## Composantes (La, Ma, Na) du moment aéro ##
 
-La = 0  #L=N=0
+La = 0  # L=N=0
 Ma = M*W/sqrt(V**2+W**2)
 Na = -M*V/sqrt(V**2+W**2)
 
@@ -82,7 +84,7 @@ Na = -M*V/sqrt(V**2+W**2)
 
 
 def FP():
-    dPdt = La/0.0026   #moment inertie
+    dPdt = La/0.0026   # moment d'inertie
     return dPdt
 
 def FQ():
@@ -95,7 +97,7 @@ def FR():
 
 
 def FPSI():
-    dPSIdt = (Q*sin(PHI) + R*cos(PHI))/cos(THETA)
+    dPSIdt = (Q*sin(PHI) + R*cos(PHI))/cos(THET)
     return dPSIdt
 
 def FTHET():

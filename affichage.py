@@ -1,5 +1,10 @@
 import streamlit as st
 
+"""
+Dans ce fichier, on fait toute la mise en page, les explications pour chaque trajectoire etc
+"""
+
+
 
 def disp_app():
 
@@ -41,14 +46,49 @@ def disp_app():
 
     return 0
 
+
 def disp_sans_frott():
-    st.title("Courbe de ballon de rugby")
-    st.write("Ici on peut observer la courbe réalisée par un ballon si on ne prend pas les fortemments en compte. La seule force éxercée sur le ballon est celle de l'attraction terrestre. C'est ce qu'on appelle un vol en chute libre. ", wrap=True)
+    st.title("Courbe de ballon rond sans frottement")
+    st.write("Ici on peut observer la courbe réalisée par un ballon si on ne prend pas les fortemments en compte. "
+             "La seule force éxercée sur le ballon est celle de l'attraction terrestre. "
+             "C'est ce qu'on appelle un vol en chute libre. ", wrap=True)
     st.write("L'équation différentielle qui régit le mouvement de la balle est donc:", wrap=True)
     st.latex(r''' \ddot{y} = - g''')
 
     st.write("En intégrant cette équation on obtient l'équation de mouvement suivante:")
     st.latex(r''' y(x) = -\frac{1}{2} g x^2 + v_0 x ''')
 
-    st.write("La courbe que l'on affiche ici est l'équation de mouvent. On a donc y (en ordonnée) en fonction de x (en abscisse). On peut faire varier la vitesse initiale, l'angle initial, et le temps auquel on se place.", wrap=True)
+    st.write("La courbe que l'on affiche ici est l'équation de mouvent. On a donc y (en ordonnée) en fonction de x "
+             "(en abscisse). On peut faire varier la vitesse initiale, l'angle initial, et le temps auquel on se place."
+             , wrap=True)
+    return 0
+
+
+def disp_avec_frott():
+    st.title("Courbe de ballon rond avec frottements")
+    st.write("Ici on peut observer la courbe réalisée par un ballon si on prend pas les fortemments en compte. "
+             "Les forces éxercées sur le ballon sont celles de l'attraction terrestre et de frottements fluides."
+             "En effet, lorsqu'un object se déplace dans l'air, il se frotte contre le molécules de l'air, et donc ces "
+             "molécules le ralentissent. C'est ce qu'on appelle la force de trainée. En fonction de la température, "
+             "de l'humidité, ou même de l'altitude, cette force n'est pas la même, puisuq el enombre de molécules "
+             "change. Il vous sera donc possible de faire varier la force de frottements pour cette simulation.  "
+             , wrap=True)
+    st.write("On note v le vecteur vitesse de la balle. L'équation différentielle qui régit le mouvement de la balle "
+             "est donc:", wrap=True)
+    st.latex(r''' \dot{\underline{v}} + \alpha \underline{v} = - g''')
+
+    st.write("En intégrant cette équation on obtient l'équation de mouvement suivante:")
+    st.latex(r''' y(x) = -\frac{1}{2} g x^2 + v_0 x ''')
+
+    st.write("La courbe que l'on affiche ici est l'équation de mouvent. On a donc y (en ordonnée) en fonction de x "
+             "(en abscisse). On peut faire varier la vitesse initiale, l'angle initial, et le temps auquel on se place."
+             , wrap=True)
+    return 0
+
+
+def disp_reel():
+    st.title("Courbe de ballon de rugby réel")
+    st.write(" On arrve enfin sur la trajectoire d'un ballon de rugby réel. Comme éxpliqué sur la page d'acceuil, "
+             "il y a plusieurs manières de frapper un coup de pied. En effet, il y a .... David à toi", wrap=True)
+
     return 0

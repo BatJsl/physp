@@ -3,10 +3,15 @@ import matplotlib.pyplot as plt
 import streamlit as st
 from trajectoire_v2_jj import système
 from scipy.integrate import solve_ivp
+"""
+
+Dans ce fichier, on crée les foncitons qui servent à tracer les courbes
+
+"""
 
 g = 9.81  # Accélération due à la gravité
 masse = 0.45  # Masse en kg
-intervalle = 0.01  #taille de l'intervalle en s
+intervalle = 0.01  # taille de l'intervalle en s
 
 
 
@@ -149,7 +154,7 @@ def trace_avec_frottements():
 
 """
 
-fonction hilaire 
+fonction ballon réel 
 
 """
 
