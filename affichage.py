@@ -23,12 +23,12 @@ def disp_app():
     left_column, right_column = st.columns(2)
     # Afficher une image
     image_path = '/Users/bat/Desktop/physp/'
-    st.image(image_path + 'image_rugby.jpg')
+    st.image(image_path + 'coup_de_pied.jpg')
 
     with right_column:
-        st.image(image_path + 'coup_de_pied.jpg')
+        st.image(image_path + 'pied_rouge.jpg')
     with left_column:
-        st.image(image_path + 'image_rugby.jpg')
+        st.image(image_path + 'pied_aus.jpg')
 
     st.header('Introduction')
     # st.subheader('My sub')
