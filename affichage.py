@@ -26,9 +26,9 @@ def disp_app():
     st.image(image_path + 'coup_de_pied.jpg')
 
     with right_column:
-        st.image(image_path + 'pied_rouge.jpg')
+        st.image(image_path + 'pied_rouge.png')
     with left_column:
-        st.image(image_path + 'pied_aus.jpg')
+        st.image(image_path + 'pied_aus.png')
 
     st.header('Introduction')
     # st.subheader('My sub')
@@ -90,5 +90,6 @@ def disp_reel():
     st.title("Courbe de ballon de rugby réel")
     st.write(" On arrve enfin sur la trajectoire d'un ballon de rugby réel. Comme éxpliqué sur la page d'acceuil, "
              "il y a plusieurs manières de frapper un coup de pied. En effet, il y a .... David à toi", wrap=True)
+
 
     return 0

@@ -182,17 +182,17 @@ def trajectoire_reelle():
     Y0 = 35
     Z0 = 0
 
-    U = st.number_input("Vitesse initiale (en m/s)", min_value=0.0, step=1.0, value=32.0)  # composantes de la vitesse initiale
-    V = 0.1
-    W = 0.1
+    U = st.number_input("Vitesse initiale (en m/s), U", min_value=0.0, step=1.0, value=32.0)  # composantes de la vitesse initiale
+    V = st.number_input("Vitesse initiale (en m/s), V", min_value=0.0, step=1.0, value=0.1)
+    W = st.number_input("Vitesse initiale (en m/s), W", min_value=0.0, step=1.0, value=0.1)
 
-    P = 10  # composante du vecteur vitesse angulaire (en s-1)
-    Q = 0
-    R = 0
+    P = st.number_input("Vitesse angulaire initiale (s-1) P", min_value=0.0, step=1.0, value=20.0)  # composante du vecteur vitesse angulaire (en s-1)
+    Q = st.number_input("Vitesse angulaire initiale Q", min_value=0.0, step=1.0, value=0.0)
+    R = st.number_input("Vitesse angulaire initiale R", min_value=0.0, step=1.0, value=0.0)
 
     PSI = np.radians(0.0)  # angles d'euler initiaux
     THET = np.radians(st.number_input("Angle initial", min_value=0.0, step=1.0, value=20.0))
-    PHI = 0
+    PHI = 0.0
 
     initial_variables = [X0, Y0, Z0, U, V, W, P, Q, R, PSI, PHI, THET]
     num_points = 100
